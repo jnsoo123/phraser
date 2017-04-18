@@ -1,0 +1,17 @@
+.container 
+  h2.text-center Phrases
+  - if @phrases.present?
+    - @phrases.each do |phrase|
+      blockquote
+        p = phrase.text
+        small = phrase.user.name
+  - else
+    p No saved Phrases
+ 
+  = form_for Phrase.new do |f|
+    .form-group
+      = f.text_area :text, class: "form-control", require: true
+    .form-group
+      = f.submit "Create Phrase", class: 'btn btn-success width-100'
+    .form-group
+      = link_to "Logout", destroy_user_session_path, class: "btn btn-danger width-100", method: :delete
