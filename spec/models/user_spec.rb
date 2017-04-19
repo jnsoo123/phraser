@@ -12,5 +12,9 @@ RSpec.describe User, type: :model do
     it "should be an admin if set to admin" do
       expect(admin).to be_admin
     end
+
+    it "should have no created phrase" do
+      expect(user.phrases).to be_empty
+    end
   end
 end

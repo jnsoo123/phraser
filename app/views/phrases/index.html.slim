@@ -10,7 +10,7 @@
  
   = form_for Phrase.new do |f|
     .form-group
-      = f.text_area :text, class: "form-control", require: true
+      = f.text_area :text, class: "form-control", require: true, placeholder: "Enter phrase"
     .form-group
       = f.submit "Create Phrase", class: 'btn btn-success width-100'
     .form-group
