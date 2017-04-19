@@ -1,6 +1,6 @@
 class PhrasesController < ApplicationController
   def index
-    @phrases = Phrase.all
+    @phrases = Phrase.all.reverse
   end
 
   def create

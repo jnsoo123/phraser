@@ -1,13 +1,6 @@
 .container 
   h2.text-center Phrases
-  - if @phrases.present?
-    - @phrases.each do |phrase|
-      blockquote
-        p = phrase.text
-        small = phrase.user.name
-  - else
-    p No saved Phrases
- 
+
   = form_for Phrase.new do |f|
     .form-group
       = f.text_area :text, class: "form-control", require: true, placeholder: "Enter phrase"
@@ -18,3 +11,15 @@
     - if current_user.admin?
       .form-group
         = link_to "Administrator", rails_admin_path, class: "btn btn-info width-100"
+
+  - if @phrases.present?
+    - @phrases.each do |phrase|
+      blockquote
+        p = phrase.text
+        small 
+          = phrase.user.name
+          br 
+          = "#{distance_of_time_in_words_to_now(phrase.created_at)} ago"
+  - else
+    p No saved Phrases
+ 
