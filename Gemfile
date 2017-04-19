@@ -26,6 +26,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'pry-rails'
   gem 'rails-controller-testing'
+  gem 'guard-rspec'
 end
 
 group :development do
