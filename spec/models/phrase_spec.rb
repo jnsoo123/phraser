@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe Phrase, type: :model do
+  let(:phrase) { create(:phrase) }
+
   describe "Initialization" do
     let(:no_text_phrase) { build(:phrase, text: nil) }
     let(:no_user_phrase) { build(:phrase, user: nil) }
@@ -19,6 +21,13 @@ RSpec.describe Phrase, type: :model do
     it "should create a phrase with a text and user" do
       phrase_with_correct_credentials.save
       expect(phrase_with_correct_credentials).to_not be_a_new_record
+    end
+  end
+
+  describe "Favorites" do
+    it "should favorite the phrase" do
+      phrase.mark_favorite
+      expect(phrase.favorites).to_not eq []
     end
   end
 end
