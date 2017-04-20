@@ -20,6 +20,7 @@ gem 'bootstrap-sass'
 gem 'bootswatch-rails'
 gem 'devise'
 gem 'rails_admin'
+gem 'font-awesome-sass'
 
 group :development, :test do
   gem 'byebug', platform: :mri
