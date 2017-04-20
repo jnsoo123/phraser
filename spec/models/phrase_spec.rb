@@ -4,7 +4,7 @@ RSpec.describe Phrase, type: :model do
   let(:phrase) { create(:phrase) }
   let(:user) { create(:user) }
 
-  describe "Initialization" do
+  describe "Creation" do
     let(:no_text_phrase) { build(:phrase, text: nil) }
     let(:no_user_phrase) { build(:phrase, user: nil) }
     let(:phrase_with_correct_credentials) { build(:phrase) }
@@ -22,14 +22,6 @@ RSpec.describe Phrase, type: :model do
     it "should create a phrase with a text and user" do
       phrase_with_correct_credentials.save
       expect(phrase_with_correct_credentials).to_not be_a_new_record
-    end
-  end
-
-  describe "Favorites" do
-    it "should favorite the phrase" do
-      phrase.mark_favorite user
-      expect(phrase.favorites).to_not eq []
-      expect(phrase.favorites.count).to eq 1
     end
   end
 end

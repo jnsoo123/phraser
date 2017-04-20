@@ -10,6 +10,12 @@ class PhrasesController < ApplicationController
     redirect_to root_path
   end
 
+  def mark_favorite
+    @phrase = Phrase.find(params[:id])
+    @phrase.favorites.create(user: current_user)
+    redirect_to root_path
+  end
+
   private
 
   def phrase_params

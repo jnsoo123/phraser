@@ -1,8 +1,4 @@
 FactoryGirl.define do
-  factory :favorite do
-    user nil
-    phrase nil
-  end
   sequence :email do |n|
     "test#{n}@test.com"
   end
@@ -25,5 +21,10 @@ FactoryGirl.define do
   factory :phrase do
     text "test phrase"
     association :user
+  end
+
+  factory :favorite do
+    association :user
+    association :phrase
   end
 end

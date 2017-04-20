@@ -3,5 +3,7 @@ Rails.application.routes.draw do
   devise_for :users
   resources :phrases, only: [:index, :create]
 
+  post "/mark_favorite/:id" => "phrases#mark_favorite", as: :mark_favorite
+
   root to: "phrases#index"
 end
