@@ -10,9 +10,9 @@ RSpec.describe PhrasesController, type: :controller do
       end
 
       it "displays all saved phrases" do
-        5.times { Phrase.create }
+        5.times { Phrase.create(text: "test") }
         get :index
-        expect(assigns(:phrases)).to eq Phrase.all
+        expect(assigns(:phrases).count).to eq 5
       end
 
       it "displays no phrases if there is no saved phrases" do
