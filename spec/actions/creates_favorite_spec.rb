@@ -17,7 +17,7 @@ describe CreatesFavorite do
     expect(Favorite.where(id: creator.favorite.id)).to be_present
   end
 
-  it "deletes a record when unfavorited" do
+  it "deletes a record when it is already favorited to be unfavorited" do
     creator = CreatesFavorite.new(user: user, phrase: phrase)
     creator.create
     id = creator.favorite.id
