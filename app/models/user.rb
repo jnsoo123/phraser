@@ -3,6 +3,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
 
   has_many :phrases
+  has_many :favorites
 
   def admin?
     role == "admin"

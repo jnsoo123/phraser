@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Phrase, type: :model do
   let(:phrase) { create(:phrase) }
+  let(:user) { create(:user) }
 
   describe "Initialization" do
     let(:no_text_phrase) { build(:phrase, text: nil) }
@@ -26,8 +27,9 @@ RSpec.describe Phrase, type: :model do
 
   describe "Favorites" do
     it "should favorite the phrase" do
-      phrase.mark_favorite
+      phrase.mark_favorite user
       expect(phrase.favorites).to_not eq []
+      expect(phrase.favorites.count).to eq 1
     end
   end
 end
