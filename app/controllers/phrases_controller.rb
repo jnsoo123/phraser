@@ -11,8 +11,9 @@ class PhrasesController < ApplicationController
   end
 
   def mark_favorite
-    @phrase = Phrase.find(params[:id])
-    @phrase.favorites.create(user: current_user)
+    phrase = Phrase.find(params[:id])
+    @action = CreatesFavorite.new(user: current_user, phrase: phrase)
+    @action.create
     redirect_to root_path
   end
 

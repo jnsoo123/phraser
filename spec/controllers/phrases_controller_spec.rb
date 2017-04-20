@@ -54,7 +54,7 @@ RSpec.describe PhrasesController, type: :controller do
     end
   end
 
-  describe "GET #mark_favorite" do
+  describe "POST #mark_favorite" do
     context "when logged in" do
       let(:phrase) { create(:phrase) }
 
@@ -65,10 +65,10 @@ RSpec.describe PhrasesController, type: :controller do
         expect(phrase.favorites.count).to eq 1
       end
 
-      it "should not favorite a repeated phrase and user" do
+      it "should unfavorite a repeated phrase and user" do
         post :mark_favorite, params: {id: phrase.id}
         post :mark_favorite, params: {id: phrase.id}
-        expect(phrase.favorites.count).to eq 1
+        expect(phrase.favorites.count).to eq 0
       end
 
       it "should redirect to root page" do

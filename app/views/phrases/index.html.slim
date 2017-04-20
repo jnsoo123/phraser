@@ -22,7 +22,7 @@
           = "#{distance_of_time_in_words_to_now(phrase.created_at)} ago"
           br
           br
-          = link_to "#{phrase.favorites.count} #{icon("heart-o")} Favorite".html_safe, mark_favorite_path(phrase), class: "btn btn-xs btn-primary", method: :post
+          = link_to "#{phrase.favorites.count} #{icon("heart-o")} #{current_user.fave_phrases.include?(phrase) ? 'Unfavorite' : 'Favorite'}".html_safe, mark_favorite_path(phrase), class: "btn btn-xs btn-primary", method: :post
   - else
     p No saved Phrases
  

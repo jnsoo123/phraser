@@ -4,6 +4,7 @@ class User < ApplicationRecord
 
   has_many :phrases
   has_many :favorites
+  has_many :fave_phrases, through: :favorites, source: :phrase
 
   def admin?
     role == "admin"
