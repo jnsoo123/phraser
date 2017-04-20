@@ -1,28 +1,31 @@
-.container 
+.container style="width: 1000px;" 
   h2.text-center Phrases
+  br
+  .row
+    .col-xs-6
+      = form_for Phrase.new do |f|
+        .form-group
+          = f.text_area :text, class: "form-control", require: true, placeholder: "Enter phrase"
+        .form-group
+          = f.submit "Create Phrase", class: 'btn btn-success width-100'
+        .form-group
+          = link_to "Logout", destroy_user_session_path, class: "btn btn-danger width-100", method: :delete
+          - if current_user.admin?
+            .form-group
+              = link_to "Administrator", rails_admin_path, class: "btn btn-info width-100"
+    .col-xs-6.well
+      - if @phrases.present?
+        - @phrases.each do |phrase|
+          blockquote
+            p = phrase.text
+            small 
+              = phrase.user.name
+              br 
+              = "#{distance_of_time_in_words_to_now(phrase.created_at)} ago"
+              br
+              br
+              = link_to "#{phrase.favorites.count} #{icon("heart-o")} #{current_user.fave_phrases.include?(phrase) ? 'Unfavorite' : 'Favorite'}".html_safe, mark_favorite_path(phrase), class: "btn btn-xs btn-primary", method: :post
+      - else
+        p No saved Phrases
 
-  = form_for Phrase.new do |f|
-    .form-group
-      = f.text_area :text, class: "form-control", require: true, placeholder: "Enter phrase"
-    .form-group
-      = f.submit "Create Phrase", class: 'btn btn-success width-100'
-    .form-group
-      = link_to "Logout", destroy_user_session_path, class: "btn btn-danger width-100", method: :delete
-    - if current_user.admin?
-      .form-group
-        = link_to "Administrator", rails_admin_path, class: "btn btn-info width-100"
 
-  - if @phrases.present?
-    - @phrases.each do |phrase|
-      blockquote
-        p = phrase.text
-        small 
-          = phrase.user.name
-          br 
-          = "#{distance_of_time_in_words_to_now(phrase.created_at)} ago"
-          br
-          br
-          = link_to "#{phrase.favorites.count} #{icon("heart-o")} #{current_user.fave_phrases.include?(phrase) ? 'Unfavorite' : 'Favorite'}".html_safe, mark_favorite_path(phrase), class: "btn btn-xs btn-primary", method: :post
-  - else
-    p No saved Phrases
- 

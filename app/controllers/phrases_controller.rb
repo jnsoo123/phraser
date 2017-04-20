@@ -1,4 +1,5 @@
 class PhrasesController < ApplicationController
+  before_action :set_phrase, only: [:mark_favorite, :destroy]
   def index
     @phrases = Phrase.all.reverse
   end
@@ -11,9 +12,13 @@ class PhrasesController < ApplicationController
   end
 
   def mark_favorite
-    phrase = Phrase.find(params[:id])
-    @action = CreatesFavorite.new(user: current_user, phrase: phrase)
+    @action = CreatesFavorite.new(user: current_user, phrase: @phrase)
     @action.create
+    redirect_to root_path
+  end
+
+  def destroy 
+    @phrase.destroy 
     redirect_to root_path
   end
 
@@ -21,5 +26,9 @@ class PhrasesController < ApplicationController
 
   def phrase_params
     params.require(:phrase).permit(:text)
+  end
+
+  def set_phrase
+    @phrase = Phrase.find(params[:id])
   end
 end
