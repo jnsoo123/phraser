@@ -1,16 +1,16 @@
 require 'rails_helper'
 
 RSpec.describe PhrasesController, type: :controller do
+  let(:user) { create(:user) } 
 
   describe "GET #index" do
     context "when logged in" do
       before(:each) do
-        user = User.create(email: 'admin@admin.com', password: "password", password_confirmation: "password")
         sign_in user
       end
 
       it "displays all saved phrases" do
-        5.times { Phrase.create(text: "test") }
+        5.times { create(:phrase) }
         get :index
         expect(assigns(:phrases).count).to eq 5
       end
@@ -33,17 +33,12 @@ RSpec.describe PhrasesController, type: :controller do
   describe "POST #create" do
     context 'when logged in' do
       before(:each) do
-        sign_in User.create(email: 'admin@admin.com', password: "password", password_confirmation: "password")
+        sign_in user
       end
 
       it "should create a phrase" do
         post :create, params: { phrase: { text: "Test phrase" } }
         expect(assigns(:phrase)).to_not be_a_new_record
-      end
-       
-      it "should create a phrase with a user" do
-        post :create, params: { phrase: { text: "Test phrase" } }
-        expect(assigns(:phrase).user).to be_a User
       end
 
       it "should redirect to root" do
@@ -58,7 +53,5 @@ RSpec.describe PhrasesController, type: :controller do
         expect(response).to redirect_to new_user_session_path
       end
     end
-
   end
-
 end
