@@ -17,4 +17,11 @@ RSpec.describe User, type: :model do
       expect(user.phrases).to be_empty
     end
   end
+
+  describe "Instance Methods" do
+    it "should know if the user is an admin or not" do
+      expect(admin.admin?).to be_truthy
+      expect(user.admin?).to be_falsy
+    end
+  end
 end
