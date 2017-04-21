@@ -24,7 +24,8 @@
               = "#{distance_of_time_in_words_to_now(phrase.created_at)} ago"
               br
               br
-              = link_to "#{phrase.favorites.count} #{icon("heart-o")} #{current_user.fave_phrases.include?(phrase) ? 'Unfavorite' : 'Favorite'}".html_safe, mark_favorite_path(phrase), class: "btn btn-xs btn-primary", method: :post
+              = link_to_favorite(phrase)
+              = link_to "#{icon('trash', 'Delete')}".html_safe, phrase_path(phrase), class: "btn btn-xs btn-danger", style: "margin-left: 5px;", method: :delete
       - else
         p No saved Phrases
 
