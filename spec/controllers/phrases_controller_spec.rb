@@ -24,7 +24,7 @@ RSpec.describe PhrasesController, type: :controller do
     context "when logged out" do
       it "should redirect to login page" do
         get :index
-        expect(response).to redirect_to new_user_session_path
+        expect_redirect_to_sign_in
       end
     end
   end
@@ -49,15 +49,14 @@ RSpec.describe PhrasesController, type: :controller do
     context 'when logged out' do
       it "should redirect to login page" do
         post :create, params: { phrase: { text: "Test phrase" } }
-        expect(response).to redirect_to new_user_session_path
+        expect_redirect_to_sign_in
       end
     end
   end
 
   describe "POST #mark_favorite" do
+    let(:phrase) { create(:phrase) }
     context "when logged in" do
-      let(:phrase) { create(:phrase) }
-
       before(:each) { sign_in user }
 
       it "should favorite a phrase" do
@@ -76,6 +75,13 @@ RSpec.describe PhrasesController, type: :controller do
         expect(response).to redirect_to root_path
       end
     end
+
+    context "when logged out" do
+      it "should redirect to login page" do
+        post :mark_favorite, params: { id: phrase.id }
+        expect_redirect_to_sign_in
+      end
+    end
   end
 
   describe "DELETE #destroy" do
@@ -85,6 +91,14 @@ RSpec.describe PhrasesController, type: :controller do
       it "should destroy the phrase" do
         phrase = create :phrase    
         expect { delete :destroy, params: { id: phrase.id } }.to change { Phrase.count }.by(-1)
+      end
+    end
+
+    context "when logged out" do
+      it "should redirect to login page" do
+        phrase = create :phrase    
+        delete :destroy, params: { id: phrase.id  }
+        expect_redirect_to_sign_in
       end
     end
   end
