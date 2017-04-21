@@ -18,7 +18,7 @@ class PhrasesController < ApplicationController
   end
 
   def destroy 
-    @phrase.destroy 
+    @phrase.destroy if current_user.phrases.include? @phrase
     redirect_to root_path
   end
 

@@ -88,9 +88,14 @@ RSpec.describe PhrasesController, type: :controller do
     context "when logged in" do
       before(:each) { sign_in user }
 
-      it "should destroy the phrase" do
-        phrase = create :phrase    
+      it "should destroy the phrase if created by user" do
+        phrase = create :phrase, user: user    
         expect { delete :destroy, params: { id: phrase.id } }.to change { Phrase.count }.by(-1)
+      end
+
+      it "should not destroy the phrase if not created by user" do
+        phrase = create :phrase    
+        expect { delete :destroy, params: { id: phrase.id } }.to change { Phrase.count }.by(0)
       end
     end
 

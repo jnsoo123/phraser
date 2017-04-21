@@ -25,7 +25,8 @@
               br
               br
               = link_to_favorite(phrase)
-              = link_to "#{icon('trash', 'Delete')}".html_safe, phrase_path(phrase), class: "btn btn-xs btn-danger", style: "margin-left: 5px;", method: :delete
+              - if current_user.phrases.include? phrase
+                = link_to "#{icon('trash', 'Delete')}".html_safe, phrase_path(phrase), class: "btn btn-xs btn-danger", style: "margin-left: 5px;", method: :delete
       - else
         p No saved Phrases
 
