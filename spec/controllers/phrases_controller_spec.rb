@@ -40,6 +40,12 @@ RSpec.describe PhrasesController, type: :controller do
         expect(assigns(:phrase)).to_not be_a_new_record
       end
 
+      it "should still redirect to root on failure" do
+        post :create, params: { phrase: { text: "" } }
+        expect(assigns(:phrase)).to be_a_new_record
+        expect(response).to redirect_to root_path
+      end
+
       it "should redirect to root" do
         post :create, params: { phrase: { text: "Test phrase" } }
         expect(response).to redirect_to root_path
@@ -96,6 +102,15 @@ RSpec.describe PhrasesController, type: :controller do
       it "should not destroy the phrase if not created by user" do
         phrase = create :phrase    
         expect { delete :destroy, params: { id: phrase.id } }.to change { Phrase.count }.by(0)
+      end
+      
+      it "should redirect to root on success or fail" do
+        phrase = create :phrase, user: user    
+        delete :destroy, params: { id: phrase.id }
+        expect(response).to redirect_to root_path
+        phrase = create :phrase    
+        delete :destroy, params: { id: phrase.id }
+        expect(response).to redirect_to root_path
       end
     end
 
